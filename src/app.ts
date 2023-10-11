@@ -8,7 +8,7 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use("/api/v1", UserRoute);
+app.use("/api/v1/users", UserRoute);
 
 app.get("/", (req: Request, res: Response) => {
   res.send("Welcome to the Bookstore API");

@@ -2,11 +2,20 @@ import { jwtHelpers } from "../../../shared/jwt";
 import prisma from "../../../shared/prisma";
 import { User } from "@prisma/client";
 
-const create = async (data: User): Promise<User> => {
+const create = async (data: User): Promise<string> => {
   const user = await prisma.user.create({
     data,
   });
-  return user;
+  if (!user) {
+    new Error("User not found");
+  }
+  const payload = {
+    role: user?.role,
+    userId: user?.id,
+  };
+  const secret = process.env.JWT_SECRET as string;
+  const token = jwtHelpers.createToken(payload, secret, "365d");
+  return token;
 };
 
 const login = async (data: Partial<User>): Promise<string | null> => {
@@ -33,7 +42,7 @@ const getAll = async (): Promise<User[]> => {
   return users;
 };
 
-const getOne = async (id: string): Promise<User> => {
+const getOne = async (id: number): Promise<User> => {
   const user = await prisma.user.findUnique({
     where: {
       id,
@@ -45,7 +54,7 @@ const getOne = async (id: string): Promise<User> => {
   return user;
 };
 
-const update = async (id: string, data: Partial<User>): Promise<User> => {
+const update = async (id: number, data: Partial<User>): Promise<User> => {
   const user = await prisma.user.update({
     where: {
       id,
@@ -55,7 +64,7 @@ const update = async (id: string, data: Partial<User>): Promise<User> => {
   return user;
 };
 
-const remove = async (id: string): Promise<User> => {
+const remove = async (id: number): Promise<User> => {
   const user = await prisma.user.delete({
     where: {
       id,

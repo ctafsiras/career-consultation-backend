@@ -20,6 +20,7 @@ const login = catchAsync(async (req, res) => {
     token,
   });
 });
+
 const getAll = catchAsync(async (req, res) => {
   const users = await UserService.getAll();
   res.status(200).json({
@@ -31,7 +32,7 @@ const getAll = catchAsync(async (req, res) => {
 });
 
 const getOne = catchAsync(async (req, res) => {
-  const user = await UserService.getOne(req.params.id);
+  const user = await UserService.getOne(Number(req.params.id));
   res.status(200).json({
     success: true,
     statusCode: 200,
@@ -41,7 +42,7 @@ const getOne = catchAsync(async (req, res) => {
 });
 
 const update = catchAsync(async (req, res) => {
-  const user = await UserService.update(req.params.id, req.body);
+  const user = await UserService.update(Number(req.params.id), req.body);
   res.status(200).json({
     success: true,
     statusCode: 200,
@@ -51,7 +52,7 @@ const update = catchAsync(async (req, res) => {
 });
 
 const remove = catchAsync(async (req, res) => {
-  const user = await UserService.remove(req.params.id);
+  const user = await UserService.remove(Number(req.params.id));
   res.status(200).json({
     success: true,
     statusCode: 200,

@@ -2,10 +2,20 @@ import express from "express";
 import { UserController } from "./user.controller";
 import auth from "../../middlewares/auth";
 import { UserRole } from "@prisma/client";
+import validateRequest from "../../middlewares/validateRequest";
+import { UserValidations } from "./user.validation";
 const router = express.Router();
 
-router.post("/signup", UserController.create);
-router.post("/login", UserController.login);
+router.post(
+  "/signup",
+  validateRequest(UserValidations.signup),
+  UserController.create
+);
+router.post(
+  "/login",
+  validateRequest(UserValidations.login),
+  UserController.login
+);
 
 router.get(
   "/",
@@ -19,6 +29,7 @@ router.get(
 );
 router.patch(
   "/:id",
+  validateRequest(UserValidations.update),
   auth(UserRole.superAdmin, UserRole.admin, UserRole.user),
   UserController.update
 );

@@ -5,7 +5,7 @@ const create = z.object({
     name: z.string(),
     description: z.string(),
     price: z.number().positive(),
-    availability: z.boolean(),
+    availability: z.boolean().optional(),
   }),
 });
 

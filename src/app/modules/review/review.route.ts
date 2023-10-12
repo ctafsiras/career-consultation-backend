@@ -7,7 +7,7 @@ import { ReviewValidations } from "./review.validation";
 const router = express.Router();
 
 router.post(
-  "/create",
+  "/",
   validateRequest(ReviewValidations.create),
   ReviewController.create
 );

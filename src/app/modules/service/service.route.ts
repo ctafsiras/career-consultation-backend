@@ -7,7 +7,7 @@ import { ServiceValidations } from "./service.validation";
 const router = express.Router();
 
 router.post(
-  "/create",
+  "/",
   validateRequest(ServiceValidations.create),
   ServiceController.create
 );

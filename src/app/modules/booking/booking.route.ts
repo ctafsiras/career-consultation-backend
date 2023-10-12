@@ -7,7 +7,7 @@ import { BookingValidations } from "./booking.validation";
 const router = express.Router();
 
 router.post(
-  "/create",
+  "/",
   validateRequest(BookingValidations.create),
   BookingController.create
 );

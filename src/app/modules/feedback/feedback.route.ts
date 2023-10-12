@@ -7,7 +7,7 @@ import { FeedbackValidations } from "./feedback.validation";
 const router = express.Router();
 
 router.post(
-  "/create",
+  "/",
   validateRequest(FeedbackValidations.create),
   FeedbackController.create
 );

@@ -4,13 +4,22 @@ import { Booking } from "@prisma/client";
 const create = async (data: Booking): Promise<Booking> => {
   const booking = await prisma.booking.create({
     data,
+    include: {
+      user: true,
+      service: true,
+    },
   });
 
   return booking;
 };
 
 const getAll = async (): Promise<Booking[]> => {
-  const bookings = await prisma.booking.findMany();
+  const bookings = await prisma.booking.findMany({
+    include: {
+      user: true,
+      service: true,
+    },
+  });
   return bookings;
 };
 
@@ -18,6 +27,10 @@ const getOne = async (id: number): Promise<Booking> => {
   const booking = await prisma.booking.findUnique({
     where: {
       id,
+    },
+    include: {
+      user: true,
+      service: true,
     },
   });
   if (!booking) {
@@ -32,6 +45,10 @@ const update = async (id: number, data: Partial<Booking>): Promise<Booking> => {
       id,
     },
     data,
+    include: {
+      user: true,
+      service: true,
+    },
   });
   return booking;
 };
@@ -40,6 +57,10 @@ const remove = async (id: number): Promise<Booking> => {
   const booking = await prisma.booking.delete({
     where: {
       id,
+    },
+    include: {
+      user: true,
+      service: true,
     },
   });
   return booking;

@@ -4,7 +4,7 @@ const create = z.object({
   body: z.object({
     userId: z.number(),
     serviceId: z.number(),
-    status: z.boolean(),
+    status: z.boolean().optional(),
   }),
 });
 

@@ -26,8 +26,9 @@ const login = async (data: Partial<User>): Promise<string | null> => {
     },
   });
   if (!user) {
-    new Error("User not found");
+    throw new Error("User not found");
   }
+  console.log(user);
   const payload = {
     role: user?.role,
     userId: user?.id,

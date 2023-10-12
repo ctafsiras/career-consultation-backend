@@ -27,6 +27,11 @@ router.get(
   auth(UserRole.superAdmin, UserRole.admin),
   UserController.getOne
 );
+router.get(
+  "/profile",
+  auth(UserRole.superAdmin, UserRole.admin, UserRole.user),
+  UserController.getProfile
+);
 router.patch(
   "/:id",
   validateRequest(UserValidations.update),

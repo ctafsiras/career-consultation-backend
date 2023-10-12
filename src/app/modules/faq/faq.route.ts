@@ -6,11 +6,7 @@ import validateRequest from "../../middlewares/validateRequest";
 import { FAQValidations } from "./faq.validation";
 const router = express.Router();
 
-router.post(
-  "/create",
-  validateRequest(FAQValidations.create),
-  FAQController.create
-);
+router.post("/", validateRequest(FAQValidations.create), FAQController.create);
 
 router.get(
   "/",

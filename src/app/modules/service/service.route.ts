@@ -1,42 +1,37 @@
 import express from "express";
-import { UserController } from "./user.controller";
+import { ServiceController } from "./service.controller";
 import auth from "../../middlewares/auth";
 import { UserRole } from "@prisma/client";
 import validateRequest from "../../middlewares/validateRequest";
-import { UserValidations } from "./user.validation";
+import { ServiceValidations } from "./service.validation";
 const router = express.Router();
 
 router.post(
-  "/signup",
-  validateRequest(UserValidations.signup),
-  UserController.create
-);
-router.post(
-  "/login",
-  validateRequest(UserValidations.login),
-  UserController.login
+  "/create",
+  validateRequest(ServiceValidations.create),
+  ServiceController.create
 );
 
 router.get(
   "/",
   auth(UserRole.superAdmin, UserRole.admin),
-  UserController.getAll
+  ServiceController.getAll
 );
 router.get(
   "/:id",
   auth(UserRole.superAdmin, UserRole.admin),
-  UserController.getOne
+  ServiceController.getOne
 );
 router.patch(
   "/:id",
-  validateRequest(UserValidations.update),
+  validateRequest(ServiceValidations.update),
   auth(UserRole.superAdmin, UserRole.admin, UserRole.user),
-  UserController.update
+  ServiceController.update
 );
 router.delete(
   "/:id",
   auth(UserRole.superAdmin, UserRole.admin),
-  UserController.remove
+  ServiceController.remove
 );
 
-export const UserRoutes = router;
+export const ServiceRoutes = router;

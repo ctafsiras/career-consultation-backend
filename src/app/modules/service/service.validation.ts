@@ -11,6 +11,7 @@ const create = z.object({
 
 const update = z.object({
   body: z.object({
+    id: z.number(),
     name: z.string().optional(),
     description: z.string().optional(),
     price: z.number().positive().optional(),

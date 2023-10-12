@@ -3,8 +3,7 @@ const { z } = require("zod");
 const create = z.object({
   body: z.object({
     userId: z.number(),
-    serviceId: z.number(),
-    status: z.boolean(),
+    comment: z.string(),
   }),
 });
 
@@ -12,12 +11,11 @@ const update = z.object({
   body: z.object({
     id: z.number(),
     userId: z.number().optional(),
-    serviceId: z.number().optional(),
-    status: z.boolean().optional(),
+    comment: z.string().optional(),
   }),
 });
 
-export const BookingValidations = {
+export const FeedbackValidations = {
   create,
   update,
 };

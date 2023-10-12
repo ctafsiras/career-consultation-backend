@@ -4,7 +4,8 @@ const create = z.object({
   body: z.object({
     userId: z.number(),
     serviceId: z.number(),
-    status: z.boolean(),
+    rating: z.number(),
+    comment: z.string(),
   }),
 });
 
@@ -13,11 +14,12 @@ const update = z.object({
     id: z.number(),
     userId: z.number().optional(),
     serviceId: z.number().optional(),
-    status: z.boolean().optional(),
+    rating: z.number().optional(),
+    comment: z.string().optional(),
   }),
 });
 
-export const BookingValidations = {
+export const ReviewValidations = {
   create,
   update,
 };

@@ -15,6 +15,7 @@ const login = z.object({
 });
 const update = z.object({
   body: z.object({
+    id: z.number(),
     name: z.string().min(3).optional(),
     email: z.string().email().optional(), // Email format validation
     password: z.string().optional(),

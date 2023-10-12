@@ -11,11 +11,11 @@ datasource db {
 }
 
 model User {
-  id       Int        @id @default(autoincrement())
-  name     String
-  email    String     @unique
-  password String
-  role     UserRole
+  id        Int        @id @default(autoincrement())
+  name      String
+  email     String     @unique
+  password  String
+  role      UserRole  @default(user)
   bookings  Booking[]
   reviews   Review[]
   feedbacks Feedback[]
@@ -34,17 +34,24 @@ model Service {
   name         String
   description  String
   price        Float
-  availability Boolean
-  bookings      Booking[]
-  reviews       Review[]
+  availability Boolean @default(true)
+  bookings     Booking[]
+  reviews      Review[]
 }
 
 model Booking {
-  id        Int     @id @default(autoincrement())
+  id        Int           @id @default(autoincrement())
   userId    Int
   serviceId Int
-  user      User    @relation(fields: [userId], references: [id])
-  service   Service @relation(fields: [serviceId], references: [id])
+  status    BookingStatus @default(Pending)
+  user      User          @relation(fields: [userId], references: [id])
+  service   Service       @relation(fields: [serviceId], references: [id])
+}
+
+enum BookingStatus {
+  Pending
+  Accepted
+  Cancelled
 }
 
 // Review model for user reviews and ratings

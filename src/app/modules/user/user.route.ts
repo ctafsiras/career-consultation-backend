@@ -7,9 +7,25 @@ const router = express.Router();
 router.post("/signup", UserController.create);
 router.post("/login", UserController.login);
 
-router.get("/", auth(UserRole.admin), UserController.getAll);
-router.get("/:id", auth(UserRole.admin), UserController.getOne);
-router.patch("/:id", auth(UserRole.admin), UserController.update);
-router.delete("/:id", auth(UserRole.admin), UserController.remove);
+router.get(
+  "/",
+  auth(UserRole.superAdmin, UserRole.admin),
+  UserController.getAll
+);
+router.get(
+  "/:id",
+  auth(UserRole.superAdmin, UserRole.admin),
+  UserController.getOne
+);
+router.patch(
+  "/:id",
+  auth(UserRole.superAdmin, UserRole.admin, UserRole.user),
+  UserController.update
+);
+router.delete(
+  "/:id",
+  auth(UserRole.superAdmin, UserRole.admin),
+  UserController.remove
+);
 
 export const UserRoute = router;

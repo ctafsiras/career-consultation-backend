@@ -21,6 +21,7 @@ const login = catchAsync(async (req, res) => {
   });
 });
 
+
 const getAll = catchAsync(async (req, res) => {
   const users = await UserService.getAll();
   res.status(200).json({

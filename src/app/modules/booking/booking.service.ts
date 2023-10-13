@@ -2,6 +2,15 @@ import prisma from "../../../shared/prisma";
 import { Booking } from "@prisma/client";
 
 const create = async (data: Booking): Promise<Booking> => {
+  const isBooked = await prisma.booking.findFirst({
+    where: {
+      date: data.date,
+      shift: data.shift,
+    },
+  });
+  if (isBooked) {
+    throw new Error("This Shift is already booked");
+  }
   const booking = await prisma.booking.create({
     data,
     include: {

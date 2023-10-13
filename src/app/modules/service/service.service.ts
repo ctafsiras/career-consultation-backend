@@ -1,6 +1,7 @@
 import { jwtHelpers } from "../../../shared/jwt";
+import { paginationHelpers } from "../../../shared/pagination";
 import prisma from "../../../shared/prisma";
-import { Service } from "@prisma/client";
+import { Prisma, Service } from "@prisma/client";
 
 const create = async (data: Service): Promise<Service> => {
   const service = await prisma.service.create({
@@ -10,8 +11,49 @@ const create = async (data: Service): Promise<Service> => {
   return service;
 };
 
-const getAll = async (): Promise<Service[]> => {
-  const services = await prisma.service.findMany();
+const getAll = async (filters: any, options: any): Promise<Service[]> => {
+  const { page, limit, skip } = paginationHelpers.calculatePagination(options);
+  const { searchTerm, ...filterData } = filters;
+  console.log(options);
+  const andConditions = [];
+
+  if (searchTerm) {
+    andConditions.push({
+      OR: ["name", "price"].map((field) => ({
+        [field]: {
+          contains: searchTerm,
+          mode: "insensitive",
+        },
+      })),
+    });
+  }
+
+  if (Object.keys(filterData).length > 0) {
+    andConditions.push({
+      AND: Object.keys(filterData).map((key) => ({
+        [key]: {
+          equals: (filterData as any)[key],
+        },
+      })),
+    });
+  }
+
+  const whereConditions: Prisma.ServiceWhereInput =
+    andConditions.length > 0 ? { AND: andConditions } : {};
+
+  const services = await prisma.service.findMany({
+    where: whereConditions,
+    skip,
+    take: limit,
+    orderBy:
+      options.sortBy && options.sortOrder
+        ? {
+            [options.sortBy]: options.sortOrder,
+          }
+        : {
+            createdAt: "desc",
+          },
+  });
   return services;
 };
 

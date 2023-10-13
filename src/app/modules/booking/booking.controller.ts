@@ -6,7 +6,7 @@ const create = catchAsync(async (req, res) => {
   res.status(201).json({
     success: true,
     statusCode: 201,
-    message: "Service created successfully",
+    message: "Service booked successfully",
     data: booking,
   });
 });
@@ -16,7 +16,7 @@ const getAll = catchAsync(async (req, res) => {
   res.status(200).json({
     success: true,
     statusCode: 200,
-    message: "Services retrieved successfully",
+    message: "Bookings retrieved successfully",
     data: bookings,
   });
 });
@@ -26,7 +26,7 @@ const getOne = catchAsync(async (req, res) => {
   res.status(200).json({
     success: true,
     statusCode: 200,
-    message: "Service retrieved successfully",
+    message: "Booking retrieved successfully",
     data: booking,
   });
 });
@@ -36,7 +36,7 @@ const update = catchAsync(async (req, res) => {
   res.status(200).json({
     success: true,
     statusCode: 200,
-    message: "Service updated successfully",
+    message: "Booking updated successfully",
     data: booking,
   });
 });
@@ -46,7 +46,7 @@ const remove = catchAsync(async (req, res) => {
   res.status(200).json({
     success: true,
     statusCode: 200,
-    message: "Service deleted successfully",
+    message: "Booking deleted successfully",
     data: booking,
   });
 });

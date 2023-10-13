@@ -23,6 +23,7 @@ const login = catchAsync(async (req, res) => {
 
 
 const getAll = catchAsync(async (req, res) => {
+  
   const users = await UserService.getAll();
   res.status(200).json({
     success: true,
@@ -63,7 +64,9 @@ const remove = catchAsync(async (req, res) => {
 });
 
 const getProfile = catchAsync(async (req: any, res) => {
-  const user = await UserService.getOne(req.user.userId);
+  res.send(req.user);
+  console.log(req.user);
+  const user = await UserService.getOne(Number(req.user.id));
   res.status(200).json({
     success: true,
     statusCode: 200,

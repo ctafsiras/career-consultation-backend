@@ -18,8 +18,7 @@ const auth =
         token,
         process.env.JWT_SECRET as Secret
       );
-
-      req.user = verifiedUser; // role  , userid
+      req.user = verifiedUser; // role  ,
 
       // role diye guard korar jnno
       if (requiredRoles.length && !requiredRoles.includes(verifiedUser.role)) {

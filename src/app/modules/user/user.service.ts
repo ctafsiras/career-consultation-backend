@@ -11,7 +11,7 @@ const create = async (data: User): Promise<string> => {
   }
   const payload = {
     role: user?.role,
-    userId: user?.id,
+    id: user?.id,
   };
   const secret = process.env.JWT_SECRET as string;
   const token = jwtHelpers.createToken(payload, secret, "365d");
@@ -31,7 +31,7 @@ const login = async (data: Partial<User>): Promise<string | null> => {
   console.log(user);
   const payload = {
     role: user?.role,
-    userId: user?.id,
+    id: user?.id,
   };
   const secret = process.env.JWT_SECRET as string;
   const token = jwtHelpers.createToken(payload, secret, "365d");

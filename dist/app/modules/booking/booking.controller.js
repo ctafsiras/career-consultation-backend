@@ -12,80 +12,58 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.UserController = void 0;
+exports.BookingController = void 0;
 const catchAsync_1 = __importDefault(require("../../../shared/catchAsync"));
-const user_service_1 = require("./user.service");
+const booking_service_1 = require("./booking.service");
 const create = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const user = yield user_service_1.UserService.create(req.body);
+    const booking = yield booking_service_1.BookingServices.create(req.body);
     res.status(201).json({
         success: true,
         statusCode: 201,
-        message: "User created successfully",
-        data: user,
-    });
-}));
-const login = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const token = yield user_service_1.UserService.login(req.body);
-    res.status(200).json({
-        success: true,
-        statusCode: 200,
-        message: "User logged in successfully",
-        token,
+        message: "Service booked successfully",
+        data: booking,
     });
 }));
 const getAll = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const users = yield user_service_1.UserService.getAll();
+    const bookings = yield booking_service_1.BookingServices.getAll();
     res.status(200).json({
         success: true,
         statusCode: 200,
-        message: "Users retrieved successfully",
-        data: users,
+        message: "Bookings retrieved successfully",
+        data: bookings,
     });
 }));
 const getOne = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const user = yield user_service_1.UserService.getOne(Number(req.params.id));
+    const booking = yield booking_service_1.BookingServices.getOne(Number(req.params.id));
     res.status(200).json({
         success: true,
         statusCode: 200,
-        message: "User retrieved successfully",
-        data: user,
+        message: "Booking retrieved successfully",
+        data: booking,
     });
 }));
 const update = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const user = yield user_service_1.UserService.update(Number(req.params.id), req.body);
+    const booking = yield booking_service_1.BookingServices.update(Number(req.params.id), req.body);
     res.status(200).json({
         success: true,
         statusCode: 200,
-        message: "User updated successfully",
-        data: user,
+        message: "Booking updated successfully",
+        data: booking,
     });
 }));
 const remove = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const user = yield user_service_1.UserService.remove(Number(req.params.id));
+    const booking = yield booking_service_1.BookingServices.remove(Number(req.params.id));
     res.status(200).json({
         success: true,
         statusCode: 200,
-        message: "User deleted successfully",
-        data: user,
+        message: "Booking deleted successfully",
+        data: booking,
     });
 }));
-const getProfile = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    res.send(req.user);
-    console.log(req.user);
-    const user = yield user_service_1.UserService.getOne(Number(req.user.id));
-    res.status(200).json({
-        success: true,
-        statusCode: 200,
-        message: "User retrieved successfully",
-        data: user,
-    });
-}));
-exports.UserController = {
+exports.BookingController = {
     create,
-    login,
     getAll,
     getOne,
     update,
     remove,
-    getProfile,
 };

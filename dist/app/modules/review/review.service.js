@@ -12,78 +12,48 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.UserService = void 0;
-const jwt_1 = require("../../../shared/jwt");
+exports.ReviewServices = void 0;
 const prisma_1 = __importDefault(require("../../../shared/prisma"));
 const create = (data) => __awaiter(void 0, void 0, void 0, function* () {
-    const user = yield prisma_1.default.user.create({
+    const review = yield prisma_1.default.review.create({
         data,
     });
-    if (!user) {
-        new Error("User not found");
-    }
-    const payload = {
-        role: user === null || user === void 0 ? void 0 : user.role,
-        id: user === null || user === void 0 ? void 0 : user.id,
-    };
-    const secret = process.env.JWT_SECRET;
-    const token = jwt_1.jwtHelpers.createToken(payload, secret, "365d");
-    return token;
-});
-const login = (data) => __awaiter(void 0, void 0, void 0, function* () {
-    const user = yield prisma_1.default.user.findUnique({
-        where: {
-            email: data.email,
-            password: data.password,
-        },
-    });
-    if (!user) {
-        throw new Error("User not found");
-    }
-    console.log(user);
-    const payload = {
-        role: user === null || user === void 0 ? void 0 : user.role,
-        id: user === null || user === void 0 ? void 0 : user.id,
-    };
-    const secret = process.env.JWT_SECRET;
-    const token = jwt_1.jwtHelpers.createToken(payload, secret, "365d");
-    return token;
+    return review;
 });
 const getAll = () => __awaiter(void 0, void 0, void 0, function* () {
-    const users = yield prisma_1.default.user.findMany();
-    return users;
+    const reviews = yield prisma_1.default.review.findMany();
+    return reviews;
 });
 const getOne = (id) => __awaiter(void 0, void 0, void 0, function* () {
-    const user = yield prisma_1.default.user.findUnique({
+    const review = yield prisma_1.default.review.findUnique({
         where: {
             id,
         },
     });
-    if (!user) {
-        throw new Error("User not found");
+    if (!review) {
+        throw new Error("Review not found");
     }
-    return user;
+    return review;
 });
 const update = (id, data) => __awaiter(void 0, void 0, void 0, function* () {
-    const user = yield prisma_1.default.user.update({
+    const review = yield prisma_1.default.review.update({
         where: {
             id,
         },
         data,
     });
-    return user;
+    return review;
 });
 const remove = (id) => __awaiter(void 0, void 0, void 0, function* () {
-    const user = yield prisma_1.default.user.delete({
+    const review = yield prisma_1.default.review.delete({
         where: {
             id,
         },
     });
-    return user;
+    return review;
 });
-exports.UserService = {
+exports.ReviewServices = {
     create,
-    login,
     getAll,
     getOne,
     update,

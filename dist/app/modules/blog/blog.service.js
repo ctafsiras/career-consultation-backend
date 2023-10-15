@@ -12,78 +12,48 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.UserService = void 0;
-const jwt_1 = require("../../../shared/jwt");
+exports.BlogServices = void 0;
 const prisma_1 = __importDefault(require("../../../shared/prisma"));
 const create = (data) => __awaiter(void 0, void 0, void 0, function* () {
-    const user = yield prisma_1.default.user.create({
+    const blog = yield prisma_1.default.blog.create({
         data,
     });
-    if (!user) {
-        new Error("User not found");
-    }
-    const payload = {
-        role: user === null || user === void 0 ? void 0 : user.role,
-        id: user === null || user === void 0 ? void 0 : user.id,
-    };
-    const secret = process.env.JWT_SECRET;
-    const token = jwt_1.jwtHelpers.createToken(payload, secret, "365d");
-    return token;
-});
-const login = (data) => __awaiter(void 0, void 0, void 0, function* () {
-    const user = yield prisma_1.default.user.findUnique({
-        where: {
-            email: data.email,
-            password: data.password,
-        },
-    });
-    if (!user) {
-        throw new Error("User not found");
-    }
-    console.log(user);
-    const payload = {
-        role: user === null || user === void 0 ? void 0 : user.role,
-        id: user === null || user === void 0 ? void 0 : user.id,
-    };
-    const secret = process.env.JWT_SECRET;
-    const token = jwt_1.jwtHelpers.createToken(payload, secret, "365d");
-    return token;
+    return blog;
 });
 const getAll = () => __awaiter(void 0, void 0, void 0, function* () {
-    const users = yield prisma_1.default.user.findMany();
-    return users;
+    const blogs = yield prisma_1.default.blog.findMany();
+    return blogs;
 });
 const getOne = (id) => __awaiter(void 0, void 0, void 0, function* () {
-    const user = yield prisma_1.default.user.findUnique({
+    const blog = yield prisma_1.default.blog.findUnique({
         where: {
             id,
         },
     });
-    if (!user) {
-        throw new Error("User not found");
+    if (!blog) {
+        throw new Error("Blog not found");
     }
-    return user;
+    return blog;
 });
 const update = (id, data) => __awaiter(void 0, void 0, void 0, function* () {
-    const user = yield prisma_1.default.user.update({
+    const blog = yield prisma_1.default.blog.update({
         where: {
             id,
         },
         data,
     });
-    return user;
+    return blog;
 });
 const remove = (id) => __awaiter(void 0, void 0, void 0, function* () {
-    const user = yield prisma_1.default.user.delete({
+    const blog = yield prisma_1.default.blog.delete({
         where: {
             id,
         },
     });
-    return user;
+    return blog;
 });
-exports.UserService = {
+exports.BlogServices = {
     create,
-    login,
     getAll,
     getOne,
     update,

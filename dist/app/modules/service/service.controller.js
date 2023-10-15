@@ -12,80 +12,61 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.UserController = void 0;
+exports.ServiceController = void 0;
 const catchAsync_1 = __importDefault(require("../../../shared/catchAsync"));
-const user_service_1 = require("./user.service");
+const pick_1 = __importDefault(require("../../../shared/pick"));
+const service_service_1 = require("./service.service");
 const create = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const user = yield user_service_1.UserService.create(req.body);
+    const service = yield service_service_1.ServiceServices.create(req.body);
     res.status(201).json({
         success: true,
         statusCode: 201,
-        message: "User created successfully",
-        data: user,
-    });
-}));
-const login = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const token = yield user_service_1.UserService.login(req.body);
-    res.status(200).json({
-        success: true,
-        statusCode: 200,
-        message: "User logged in successfully",
-        token,
+        message: "Service created successfully",
+        data: service,
     });
 }));
 const getAll = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const users = yield user_service_1.UserService.getAll();
+    const filters = (0, pick_1.default)(req.query, ['searchTerm', 'name', 'price']);
+    const options = (0, pick_1.default)(req.query, ['limit', 'page', 'sortBy', 'sortOrder']);
+    const services = yield service_service_1.ServiceServices.getAll(filters, options);
     res.status(200).json({
         success: true,
         statusCode: 200,
-        message: "Users retrieved successfully",
-        data: users,
+        message: "Services retrieved successfully",
+        data: services,
     });
 }));
 const getOne = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const user = yield user_service_1.UserService.getOne(Number(req.params.id));
+    const service = yield service_service_1.ServiceServices.getOne(Number(req.params.id));
     res.status(200).json({
         success: true,
         statusCode: 200,
-        message: "User retrieved successfully",
-        data: user,
+        message: "Service retrieved successfully",
+        data: service,
     });
 }));
 const update = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const user = yield user_service_1.UserService.update(Number(req.params.id), req.body);
+    const service = yield service_service_1.ServiceServices.update(Number(req.params.id), req.body);
     res.status(200).json({
         success: true,
         statusCode: 200,
-        message: "User updated successfully",
-        data: user,
+        message: "Service updated successfully",
+        data: service,
     });
 }));
 const remove = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const user = yield user_service_1.UserService.remove(Number(req.params.id));
+    const service = yield service_service_1.ServiceServices.remove(Number(req.params.id));
     res.status(200).json({
         success: true,
         statusCode: 200,
-        message: "User deleted successfully",
-        data: user,
+        message: "Service deleted successfully",
+        data: service,
     });
 }));
-const getProfile = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    res.send(req.user);
-    console.log(req.user);
-    const user = yield user_service_1.UserService.getOne(Number(req.user.id));
-    res.status(200).json({
-        success: true,
-        statusCode: 200,
-        message: "User retrieved successfully",
-        data: user,
-    });
-}));
-exports.UserController = {
+exports.ServiceController = {
     create,
-    login,
     getAll,
     getOne,
     update,
     remove,
-    getProfile,
 };

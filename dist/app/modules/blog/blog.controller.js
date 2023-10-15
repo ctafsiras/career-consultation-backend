@@ -12,80 +12,58 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.UserController = void 0;
+exports.BlogController = void 0;
 const catchAsync_1 = __importDefault(require("../../../shared/catchAsync"));
-const user_service_1 = require("./user.service");
+const blog_service_1 = require("./blog.service");
 const create = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const user = yield user_service_1.UserService.create(req.body);
+    const blog = yield blog_service_1.BlogServices.create(req.body);
     res.status(201).json({
         success: true,
         statusCode: 201,
-        message: "User created successfully",
-        data: user,
-    });
-}));
-const login = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const token = yield user_service_1.UserService.login(req.body);
-    res.status(200).json({
-        success: true,
-        statusCode: 200,
-        message: "User logged in successfully",
-        token,
+        message: "Service created successfully",
+        data: blog,
     });
 }));
 const getAll = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const users = yield user_service_1.UserService.getAll();
+    const blogs = yield blog_service_1.BlogServices.getAll();
     res.status(200).json({
         success: true,
         statusCode: 200,
-        message: "Users retrieved successfully",
-        data: users,
+        message: "Services retrieved successfully",
+        data: blogs,
     });
 }));
 const getOne = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const user = yield user_service_1.UserService.getOne(Number(req.params.id));
+    const blog = yield blog_service_1.BlogServices.getOne(Number(req.params.id));
     res.status(200).json({
         success: true,
         statusCode: 200,
-        message: "User retrieved successfully",
-        data: user,
+        message: "Service retrieved successfully",
+        data: blog,
     });
 }));
 const update = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const user = yield user_service_1.UserService.update(Number(req.params.id), req.body);
+    const blog = yield blog_service_1.BlogServices.update(Number(req.params.id), req.body);
     res.status(200).json({
         success: true,
         statusCode: 200,
-        message: "User updated successfully",
-        data: user,
+        message: "Service updated successfully",
+        data: blog,
     });
 }));
 const remove = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const user = yield user_service_1.UserService.remove(Number(req.params.id));
+    const blog = yield blog_service_1.BlogServices.remove(Number(req.params.id));
     res.status(200).json({
         success: true,
         statusCode: 200,
-        message: "User deleted successfully",
-        data: user,
+        message: "Service deleted successfully",
+        data: blog,
     });
 }));
-const getProfile = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    res.send(req.user);
-    console.log(req.user);
-    const user = yield user_service_1.UserService.getOne(Number(req.user.id));
-    res.status(200).json({
-        success: true,
-        statusCode: 200,
-        message: "User retrieved successfully",
-        data: user,
-    });
-}));
-exports.UserController = {
+exports.BlogController = {
     create,
-    login,
     getAll,
     getOne,
     update,
     remove,
-    getProfile,
 };

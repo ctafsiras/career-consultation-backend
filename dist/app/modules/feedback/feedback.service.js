@@ -12,78 +12,48 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.UserService = void 0;
-const jwt_1 = require("../../../shared/jwt");
+exports.FeedbackServices = void 0;
 const prisma_1 = __importDefault(require("../../../shared/prisma"));
 const create = (data) => __awaiter(void 0, void 0, void 0, function* () {
-    const user = yield prisma_1.default.user.create({
+    const feedback = yield prisma_1.default.feedback.create({
         data,
     });
-    if (!user) {
-        new Error("User not found");
-    }
-    const payload = {
-        role: user === null || user === void 0 ? void 0 : user.role,
-        id: user === null || user === void 0 ? void 0 : user.id,
-    };
-    const secret = process.env.JWT_SECRET;
-    const token = jwt_1.jwtHelpers.createToken(payload, secret, "365d");
-    return token;
-});
-const login = (data) => __awaiter(void 0, void 0, void 0, function* () {
-    const user = yield prisma_1.default.user.findUnique({
-        where: {
-            email: data.email,
-            password: data.password,
-        },
-    });
-    if (!user) {
-        throw new Error("User not found");
-    }
-    console.log(user);
-    const payload = {
-        role: user === null || user === void 0 ? void 0 : user.role,
-        id: user === null || user === void 0 ? void 0 : user.id,
-    };
-    const secret = process.env.JWT_SECRET;
-    const token = jwt_1.jwtHelpers.createToken(payload, secret, "365d");
-    return token;
+    return feedback;
 });
 const getAll = () => __awaiter(void 0, void 0, void 0, function* () {
-    const users = yield prisma_1.default.user.findMany();
-    return users;
+    const feedbacks = yield prisma_1.default.feedback.findMany();
+    return feedbacks;
 });
 const getOne = (id) => __awaiter(void 0, void 0, void 0, function* () {
-    const user = yield prisma_1.default.user.findUnique({
+    const feedback = yield prisma_1.default.feedback.findUnique({
         where: {
             id,
         },
     });
-    if (!user) {
-        throw new Error("User not found");
+    if (!feedback) {
+        throw new Error("Feedback not found");
     }
-    return user;
+    return feedback;
 });
 const update = (id, data) => __awaiter(void 0, void 0, void 0, function* () {
-    const user = yield prisma_1.default.user.update({
+    const feedback = yield prisma_1.default.feedback.update({
         where: {
             id,
         },
         data,
     });
-    return user;
+    return feedback;
 });
 const remove = (id) => __awaiter(void 0, void 0, void 0, function* () {
-    const user = yield prisma_1.default.user.delete({
+    const feedback = yield prisma_1.default.feedback.delete({
         where: {
             id,
         },
     });
-    return user;
+    return feedback;
 });
-exports.UserService = {
+exports.FeedbackServices = {
     create,
-    login,
     getAll,
     getOne,
     update,

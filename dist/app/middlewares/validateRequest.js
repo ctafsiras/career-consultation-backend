@@ -9,26 +9,18 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const jwt_1 = require("../../shared/jwt");
-const auth = (...requiredRoles) => (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+const validateRequest = (schema) => (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        //get authorization token
-        const token = req.headers.authorization;
-        if (!token) {
-            throw new Error("You are not authorized");
-        }
-        // verify token
-        let verifiedUser = null;
-        verifiedUser = jwt_1.jwtHelpers.verifyToken(token, process.env.JWT_SECRET);
-        req.user = verifiedUser; // role  ,
-        // role diye guard korar jnno
-        if (requiredRoles.length && !requiredRoles.includes(verifiedUser.role)) {
-            throw new Error("Forbidden");
-        }
-        next();
+        yield schema.parseAsync({
+            body: req.body,
+            query: req.query,
+            params: req.params,
+            cookies: req.cookies,
+        });
+        return next();
     }
     catch (error) {
         next(error);
     }
 });
-exports.default = auth;
+exports.default = validateRequest;

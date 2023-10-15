@@ -12,78 +12,48 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.UserService = void 0;
-const jwt_1 = require("../../../shared/jwt");
+exports.FAQServices = void 0;
 const prisma_1 = __importDefault(require("../../../shared/prisma"));
 const create = (data) => __awaiter(void 0, void 0, void 0, function* () {
-    const user = yield prisma_1.default.user.create({
+    const faq = yield prisma_1.default.fAQ.create({
         data,
     });
-    if (!user) {
-        new Error("User not found");
-    }
-    const payload = {
-        role: user === null || user === void 0 ? void 0 : user.role,
-        id: user === null || user === void 0 ? void 0 : user.id,
-    };
-    const secret = process.env.JWT_SECRET;
-    const token = jwt_1.jwtHelpers.createToken(payload, secret, "365d");
-    return token;
-});
-const login = (data) => __awaiter(void 0, void 0, void 0, function* () {
-    const user = yield prisma_1.default.user.findUnique({
-        where: {
-            email: data.email,
-            password: data.password,
-        },
-    });
-    if (!user) {
-        throw new Error("User not found");
-    }
-    console.log(user);
-    const payload = {
-        role: user === null || user === void 0 ? void 0 : user.role,
-        id: user === null || user === void 0 ? void 0 : user.id,
-    };
-    const secret = process.env.JWT_SECRET;
-    const token = jwt_1.jwtHelpers.createToken(payload, secret, "365d");
-    return token;
+    return faq;
 });
 const getAll = () => __awaiter(void 0, void 0, void 0, function* () {
-    const users = yield prisma_1.default.user.findMany();
-    return users;
+    const faqs = yield prisma_1.default.fAQ.findMany();
+    return faqs;
 });
 const getOne = (id) => __awaiter(void 0, void 0, void 0, function* () {
-    const user = yield prisma_1.default.user.findUnique({
+    const faq = yield prisma_1.default.fAQ.findUnique({
         where: {
             id,
         },
     });
-    if (!user) {
-        throw new Error("User not found");
+    if (!faq) {
+        throw new Error("FAQ not found");
     }
-    return user;
+    return faq;
 });
 const update = (id, data) => __awaiter(void 0, void 0, void 0, function* () {
-    const user = yield prisma_1.default.user.update({
+    const faq = yield prisma_1.default.fAQ.update({
         where: {
             id,
         },
         data,
     });
-    return user;
+    return faq;
 });
 const remove = (id) => __awaiter(void 0, void 0, void 0, function* () {
-    const user = yield prisma_1.default.user.delete({
+    const faq = yield prisma_1.default.fAQ.delete({
         where: {
             id,
         },
     });
-    return user;
+    return faq;
 });
-exports.UserService = {
+exports.FAQServices = {
     create,
-    login,
     getAll,
     getOne,
     update,

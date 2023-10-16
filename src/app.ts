@@ -11,7 +11,10 @@ import { FAQRoutes } from "./app/modules/faq/faq.route";
 import { FeedbackRoutes } from "./app/modules/feedback/feedback.route";
 const app: Application = express();
 
-app.use(cors());
+app.use(cors({
+  origin: 'http://localhost:3000',
+  credentials: true
+}));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 

@@ -15,7 +15,10 @@ const blog_route_1 = require("./app/modules/blog/blog.route");
 const faq_route_1 = require("./app/modules/faq/faq.route");
 const feedback_route_1 = require("./app/modules/feedback/feedback.route");
 const app = (0, express_1.default)();
-app.use((0, cors_1.default)());
+app.use((0, cors_1.default)({
+    origin: 'http://localhost:3000',
+    credentials: true
+}));
 app.use(express_1.default.json());
 app.use(express_1.default.urlencoded({ extended: true }));
 app.use("/api/v1/users", user_route_1.UserRoutes);

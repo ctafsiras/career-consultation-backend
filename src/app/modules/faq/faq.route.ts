@@ -10,7 +10,7 @@ router.post("/", validateRequest(FAQValidations.create), FAQController.create);
 
 router.get(
   "/",
-  auth(UserRole.superAdmin, UserRole.admin),
+  // auth(UserRole.superAdmin, UserRole.admin),
   FAQController.getAll
 );
 router.get(

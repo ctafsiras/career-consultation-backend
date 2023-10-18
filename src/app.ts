@@ -28,6 +28,11 @@ app.use("/api/v1/reviews", ReviewRoutes);
 
 app.use(globalErrorHandler);
 
+
+app.get("/", (req: Request, res: Response) => {
+  res.send("Welcome to the Career Consultation API");
+});
+
 //handle not found
 app.use((req: Request, res: Response, next: NextFunction) => {
   res.status(404).json({
@@ -41,10 +46,6 @@ app.use((req: Request, res: Response, next: NextFunction) => {
     ],
   });
   next();
-});
-
-app.get("/", (req: Request, res: Response) => {
-  res.send("Welcome to the Career Consultation API");
 });
 
 export default app;

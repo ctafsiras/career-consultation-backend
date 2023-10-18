@@ -10,7 +10,11 @@ const create = async (data: Feedback): Promise<Feedback> => {
 };
 
 const getAll = async (): Promise<Feedback[]> => {
-  const feedbacks = await prisma.feedback.findMany();
+  const feedbacks = await prisma.feedback.findMany({
+    include: {
+      user: true,
+    }
+  });
   return feedbacks;
 };
 
@@ -19,6 +23,9 @@ const getOne = async (id: number): Promise<Feedback> => {
     where: {
       id,
     },
+    include:{
+      user: true,
+    }
   });
   if (!feedback) {
     throw new Error("Feedback not found");
@@ -32,6 +39,9 @@ const update = async (id: number, data: Partial<Feedback>): Promise<Feedback> =>
       id,
     },
     data,
+    include: {
+      user: true,
+    }
   });
   return feedback;
 };
@@ -41,6 +51,7 @@ const remove = async (id: number): Promise<Feedback> => {
     where: {
       id,
     },
+    
   });
   return feedback;
 };

@@ -21,7 +21,11 @@ const create = (data) => __awaiter(void 0, void 0, void 0, function* () {
     return feedback;
 });
 const getAll = () => __awaiter(void 0, void 0, void 0, function* () {
-    const feedbacks = yield prisma_1.default.feedback.findMany();
+    const feedbacks = yield prisma_1.default.feedback.findMany({
+        include: {
+            user: true,
+        }
+    });
     return feedbacks;
 });
 const getOne = (id) => __awaiter(void 0, void 0, void 0, function* () {
@@ -29,6 +33,9 @@ const getOne = (id) => __awaiter(void 0, void 0, void 0, function* () {
         where: {
             id,
         },
+        include: {
+            user: true,
+        }
     });
     if (!feedback) {
         throw new Error("Feedback not found");
@@ -41,6 +48,9 @@ const update = (id, data) => __awaiter(void 0, void 0, void 0, function* () {
             id,
         },
         data,
+        include: {
+            user: true,
+        }
     });
     return feedback;
 });

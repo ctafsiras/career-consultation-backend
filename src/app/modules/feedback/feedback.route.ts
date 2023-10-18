@@ -14,7 +14,7 @@ router.post(
 
 router.get(
   "/",
-  auth(UserRole.superAdmin, UserRole.admin),
+  // auth(UserRole.superAdmin, UserRole.admin),
   FeedbackController.getAll
 );
 router.get(

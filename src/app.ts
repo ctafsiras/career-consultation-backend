@@ -13,7 +13,7 @@ const app: Application = express();
 
 app.use(
   cors({
-    origin: "https://career-consultation-backend.vercel.app",
+    origin: ["https://career-consultation-frontend.vercel.app", "*"],
     credentials: true,
   })
 );

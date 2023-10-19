@@ -16,12 +16,12 @@ exports.UserController = void 0;
 const catchAsync_1 = __importDefault(require("../../../shared/catchAsync"));
 const user_service_1 = require("./user.service");
 const create = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const user = yield user_service_1.UserService.create(req.body);
+    const token = yield user_service_1.UserService.create(req.body);
     res.status(201).json({
         success: true,
         statusCode: 201,
         message: "User created successfully",
-        data: user,
+        token
     });
 }));
 const login = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {

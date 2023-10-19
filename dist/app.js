@@ -29,6 +29,9 @@ app.use("/api/v1/faqs", faq_route_1.FAQRoutes);
 app.use("/api/v1/feedbacks", feedback_route_1.FeedbackRoutes);
 app.use("/api/v1/reviews", review_route_1.ReviewRoutes);
 app.use(globalErrorHandler_1.default);
+app.get("/", (req, res) => {
+    res.send("Welcome to the Career Consultation API");
+});
 //handle not found
 app.use((req, res, next) => {
     res.status(404).json({
@@ -42,8 +45,5 @@ app.use((req, res, next) => {
         ],
     });
     next();
-});
-app.get("/", (req, res) => {
-    res.send("Welcome to the Career Consultation API");
 });
 exports.default = app;

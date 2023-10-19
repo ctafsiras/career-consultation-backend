@@ -19,7 +19,7 @@ const getAll = async (filters: any, options: any): Promise<Service[]> => {
 
   if (searchTerm) {
     andConditions.push({
-      OR: ["name", "price"].map((field) => ({
+      OR: ["name"].map((field) => ({
         [field]: {
           contains: searchTerm,
           mode: "insensitive",

@@ -39,7 +39,7 @@ const getAll = (filters, options) => __awaiter(void 0, void 0, void 0, function*
     const andConditions = [];
     if (searchTerm) {
         andConditions.push({
-            OR: ["name", "price"].map((field) => ({
+            OR: ["name"].map((field) => ({
                 [field]: {
                     contains: searchTerm,
                     mode: "insensitive",

@@ -5,7 +5,9 @@ import { jwtHelpers } from "../../shared/jwt";
 const auth =
   (...requiredRoles: string[]) =>
   async (req: any, res: Response, next: NextFunction) => {
+
     try {
+      // console.log(req.headers.authorization);
       //get authorization token
       const token = req.headers.authorization;
       if (!token) {
@@ -19,6 +21,7 @@ const auth =
         process.env.JWT_SECRET as Secret
       );
       req.user = verifiedUser; // role  ,
+
 
       // role diye guard korar jnno
       if (requiredRoles.length && !requiredRoles.includes(verifiedUser.role)) {

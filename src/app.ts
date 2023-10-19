@@ -11,10 +11,12 @@ import { FAQRoutes } from "./app/modules/faq/faq.route";
 import { FeedbackRoutes } from "./app/modules/feedback/feedback.route";
 const app: Application = express();
 
-app.use(cors({
-  origin: 'http://localhost:3000',
-  credentials: true
-}));
+app.use(
+  cors({
+    origin: "http://192.168.0.106:3000",
+    credentials: true,
+  })
+);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -27,7 +29,6 @@ app.use("/api/v1/feedbacks", FeedbackRoutes);
 app.use("/api/v1/reviews", ReviewRoutes);
 
 app.use(globalErrorHandler);
-
 
 app.get("/", (req: Request, res: Response) => {
   res.send("Welcome to the Career Consultation API");

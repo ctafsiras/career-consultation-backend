@@ -70,8 +70,6 @@ const remove = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0,
     });
 }));
 const getProfile = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    res.send(req.user);
-    console.log(req.user);
     const user = yield user_service_1.UserService.getOne(Number(req.user.id));
     res.status(200).json({
         success: true,

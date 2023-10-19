@@ -12,6 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const jwt_1 = require("../../shared/jwt");
 const auth = (...requiredRoles) => (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
+        // console.log(req.headers.authorization);
         //get authorization token
         const token = req.headers.authorization;
         if (!token) {

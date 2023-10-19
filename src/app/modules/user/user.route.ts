@@ -5,6 +5,11 @@ import { UserRole } from "@prisma/client";
 import validateRequest from "../../middlewares/validateRequest";
 import { UserValidations } from "./user.validation";
 const router = express.Router();
+router.get(
+  "/profile",
+  auth(UserRole.superAdmin, UserRole.admin, UserRole.user),
+  UserController.getProfile
+);
 
 router.post(
   "/signup",
@@ -26,11 +31,6 @@ router.get(
   "/:id",
   auth(UserRole.superAdmin, UserRole.admin),
   UserController.getOne
-);
-router.get(
-  "/profile",
-  auth(UserRole.superAdmin, UserRole.admin, UserRole.user),
-  UserController.getProfile
 );
 router.patch(
   "/:id",

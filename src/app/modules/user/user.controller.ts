@@ -64,8 +64,6 @@ const remove = catchAsync(async (req, res) => {
 });
 
 const getProfile = catchAsync(async (req: any, res) => {
-  res.send(req.user);
-  console.log(req.user);
   const user = await UserService.getOne(Number(req.user.id));
   res.status(200).json({
     success: true,
